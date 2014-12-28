@@ -1,0 +1,4 @@
+AzarashiJanken
+==============
+
+LeapMotionを使ったアザラシじゃんけん
