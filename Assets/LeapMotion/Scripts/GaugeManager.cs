@@ -11,6 +11,7 @@ public class GaugeManager : MonoBehaviour {
 	private HandController controller;
 	public AudioClip[] sounds;
 	private bool isFirstStep = true;
+	private EnemyHand enemyHand;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +19,8 @@ public class GaugeManager : MonoBehaviour {
 		gaugeSize = new Vector3(DEFAULT_GAUGE_SIZE, 0.7f, 1.0f);
 		controller = (GameObject.Find("HandController") as GameObject)
 			.GetComponent(typeof(HandController)) as HandController;
+		enemyHand = (GameObject.Find("EnemyHand") as GameObject)
+			.GetComponent(typeof(EnemyHand)) as EnemyHand;
 	}
 	
 	// Update is called once per frame
@@ -26,20 +29,24 @@ public class GaugeManager : MonoBehaviour {
 		//手が出ているかを判定
 		if(HandIsValid()) {
 
-			if (gaugeSize.x >= DEFAULT_GAUGE_SIZE) {
+			if (gaugeSize.x >= DEFAULT_GAUGE_SIZE && isFirstStep) {
 				decrementTime = -decrementTime;
 				audio.PlayOneShot(sounds[0]);
+				isFirstStep = false;
 			} 
 
-			if (gaugeSize.x < 0) {
-					decrementTime = -decrementTime;
-					audio.PlayOneShot(sounds[1]);
+			if (gaugeSize.x <= 0 && !isFirstStep) {
+				decrementTime = 0;
+				gaugeSize.x = 0;
+				audio.PlayOneShot(sounds[1]);
+				isFirstStep = true;
+				enemyHand.HandDecide();
 			} 
 
 			timeGauge.color = ChangeColor(gaugeSize.x);
-			gaugeSize.x += decrementTime;
 		} else {
 			//手が出ていない時の初期化・停止処理
+			isFirstStep = true;
 			decrementTime = DEFAULT_DECREMENT_TIME;
 			timeGauge.color = Color.green;
 			gaugeSize.x = DEFAULT_GAUGE_SIZE;
@@ -47,6 +54,10 @@ public class GaugeManager : MonoBehaviour {
 		}
 
 		timeGauge.transform.localScale = gaugeSize;
+	}
+
+	void FixedUpdate() {
+			gaugeSize.x += decrementTime;
 	}
 
 	private bool HandIsValid() {
