@@ -7,11 +7,14 @@ public class HandJudge : MonoBehaviour {
 	public const int LOSE = 1;
 	public const int WIN = 2;
 	public const int INVALID = -1;
-	private GUIText text;
+	private GUIText judgeText;
+	private GUIText resultText;
 
 	// Use this for initialization
 	void Start () {
-		text = gameObject.GetComponent(typeof(GUIText)) as GUIText;
+		judgeText = gameObject.GetComponent(typeof(GUIText)) as GUIText;
+		resultText = (GameObject.Find("ResultText") as GameObject)
+			.GetComponent(typeof(GUIText)) as GUIText;
 	}
 	
 	// Update is called once per frame
@@ -24,22 +27,24 @@ public class HandJudge : MonoBehaviour {
 		int result = -1;
 
 		if(player == INVALID) {
-			text.text = "やりなおし";
+			judgeText.text = "やりなおし";
 			return INVALID;
 		}
 
 		switch (judge) {
 		case DRAW: 
 			result = DRAW;
-			text.text = "引き分け";
+			judgeText.text = "引き分け";
 			break;
 		case LOSE: 
 			result = LOSE;
-			text.text = "負け";
+			judgeText.text = "負け";
+			resultText.text += "X";
 			break;
 		case WIN: 
 			result = WIN;
-			text.text = "勝ち";
+			judgeText.text = "勝ち";
+			resultText.text += "◯";
 			break;
 		}
 

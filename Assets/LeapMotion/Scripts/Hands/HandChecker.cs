@@ -23,6 +23,7 @@ public class HandChecker : MonoBehaviour {
 			.GetComponent(typeof(EnemyHand)) as EnemyHand;
 		judge = (GameObject.Find("JudgeText") as GameObject)
 			.GetComponent(typeof(HandJudge)) as HandJudge;
+		displayReset();
 	}
 	
 	// Update is called once per frame
@@ -50,8 +51,12 @@ public class HandChecker : MonoBehaviour {
 	public void handDisplay(int enemyHand) {
 		handCheck(controller.ExtendedFingers);
 		if (judge.Judge(playerHand, enemyHand) != HandJudge.INVALID) {
-			text.text = "Player: " + hands[playerHand] + " " +
+			text.text = "Player: " + hands[playerHand] + "\n" +
 				"Enemy: " + hands[enemyHand];
 		}
+	}
+
+	public void displayReset() {
+		text.text = "Player:\nEnemy:";
 	}
 }

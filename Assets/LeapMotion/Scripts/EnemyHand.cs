@@ -8,6 +8,7 @@ public class EnemyHand : MonoBehaviour {
 	private bool isStop = false;
 	private HandChecker handChecker;
 	private GaugeManager gauge;
+	private GUIText resultText;
 
 
 	public bool IsStop {
@@ -26,6 +27,8 @@ public class EnemyHand : MonoBehaviour {
 			.GetComponent(typeof(HandChecker)) as HandChecker;
 		gauge = (GameObject.Find("TimeGauge") as GameObject)
 			.GetComponent(typeof(GaugeManager)) as GaugeManager;
+		resultText = (GameObject.Find("ResultText") as GameObject)
+			.GetComponent(typeof(GUIText)) as GUIText;
 	}
 	
 	// Update is called once per frame
@@ -51,5 +54,10 @@ public class EnemyHand : MonoBehaviour {
 		yield return new WaitForSeconds(3.0f);
 		isStop = false;
 		gauge.GaugeReset();
+		handChecker.displayReset();
+
+		if(resultText.text.Length == 3) {
+			resultText.text = "";
+		}
 	}
 }
