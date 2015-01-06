@@ -28,36 +28,38 @@ public class GaugeManager : MonoBehaviour {
 
 		//手が出ているかを判定
 		if(HandIsValid()) {
-
 			if (gaugeSize.x >= DEFAULT_GAUGE_SIZE && isFirstStep) {
 				decrementTime = -decrementTime;
 				audio.PlayOneShot(sounds[0]);
 				isFirstStep = false;
 			} 
 
-			if (gaugeSize.x <= 0 && !isFirstStep) {
+			if (gaugeSize.x < 0) {
 				decrementTime = 0;
 				gaugeSize.x = 0;
 				audio.PlayOneShot(sounds[1]);
-				isFirstStep = true;
 				enemyHand.HandDecide();
-			} 
+			}
 
 			timeGauge.color = ChangeColor(gaugeSize.x);
-		} else {
+		} else if(!enemyHand.IsStop){
 			//手が出ていない時の初期化・停止処理
-			isFirstStep = true;
-			decrementTime = DEFAULT_DECREMENT_TIME;
-			timeGauge.color = Color.green;
-			gaugeSize.x = DEFAULT_GAUGE_SIZE;
-			audio.Stop();
+			GaugeReset();
 		}
 
 		timeGauge.transform.localScale = gaugeSize;
 	}
 
 	void FixedUpdate() {
-			gaugeSize.x += decrementTime;
+		gaugeSize.x += decrementTime;
+	}
+
+	public void GaugeReset() {
+		isFirstStep = true;
+		decrementTime = DEFAULT_DECREMENT_TIME;
+		gaugeSize.x = DEFAULT_GAUGE_SIZE;
+		timeGauge.color = Color.green;
+		audio.Stop();
 	}
 
 	private bool HandIsValid() {
