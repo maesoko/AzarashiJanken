@@ -3,7 +3,7 @@
 * Leap Motion proprietary. Licensed under Apache 2.0                           *
 * Available at http://www.apache.org/licenses/LICENSE-2.0.html                 *
 \******************************************************************************/
-
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using System.Collections;
@@ -161,3 +161,4 @@ public class HandControllerEditor : Editor {
     Undo.RecordObject(controller, "Hand Preferences Changed: " + controller.name);
   }
 }
+#endif

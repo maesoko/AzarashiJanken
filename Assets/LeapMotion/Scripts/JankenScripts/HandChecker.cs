@@ -7,7 +7,6 @@ public class HandChecker : MonoBehaviour {
 	private GUIText text;
 	private HandController controller;
 	private string[] hands = {"グー", "チョキ", "パー"};
-	private EnemyHand enemyHand;
 	private HandJudge judge;
 	private int playerHand;
 	private const int ROCK = 0;
@@ -19,8 +18,6 @@ public class HandChecker : MonoBehaviour {
 		text = gameObject.GetComponent (typeof(GUIText)) as GUIText;
 		controller = (GameObject.Find("HandController") as GameObject)
 			.GetComponent(typeof(HandController)) as HandController;
-		enemyHand = (GameObject.Find("EnemyHand") as GameObject)
-			.GetComponent(typeof(EnemyHand)) as EnemyHand;
 		judge = (GameObject.Find("JudgeText") as GameObject)
 			.GetComponent(typeof(HandJudge)) as HandJudge;
 		displayReset();
