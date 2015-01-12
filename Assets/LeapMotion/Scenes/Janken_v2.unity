@@ -197,8 +197,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handController: {fileID: 1852422500}
   topScreen: {fileID: 1772758451}
+  topBgManager: {fileID: 1772758450}
   uiBgManager: {fileID: 1698674558}
   gameBgManager: {fileID: 637548613}
+  timeOutChecker: {fileID: 637548614}
 --- !u!4 &261662981
 Transform:
   m_ObjectHideFlags: 0
@@ -548,6 +550,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 637548612}
   - 114: {fileID: 637548613}
+  - 114: {fileID: 637548614}
   m_Layer: 0
   m_Name: GameScreen
   m_TagString: Untagged
@@ -596,6 +599,19 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 7c567af536b5140629dd6f7bc1820f26, type: 3}
   - {fileID: 2800000, guid: 4602275394edf41d194193f99594de5b, type: 3}
   - {fileID: 2800000, guid: fce343cf8102c4ddf9593486467dd3b0, type: 3}
+--- !u!114 &637548614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 637548611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0dcf01fea2410e45b09b14d94de54fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinker: {fileID: 425962910}
+  timeoutPeriod: 10
 --- !u!1 &647180638
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,12 +5,17 @@ public class GameManager : MonoBehaviour {
 
 	public HandController handController;
 	public TopScreen topScreen;
+	public BackgroundManager topBgManager;
 	public BackgroundManager uiBgManager;
 	public BackgroundManager gameBgManager;
-	private TimeOutChecker timeOutChecker;
+	public TimeOutChecker timeOutChecker;
 
 	public int ExtendedFingers{
 		get{return handController.GetFrame().Fingers.Extended().Count;}
+	}
+
+	public bool GameIsPlaying{
+		get{ return !topScreen.IsDisplayed; }
 	}
 
 	// Use this for initialization
@@ -21,10 +26,23 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(!topScreen.IsDisplayed) {
+		if(GameIsPlaying) {
 			uiBgManager.ChangeActive(true);
 			gameBgManager.ChangeActive(true);
+
+			if(timeOutChecker.TimeOut) {
+				GameReset();
+			}
+
+		} else {
+			init();
 		}
+	}
+
+	private void GameReset(){
+		topScreen.IsDisplayed = true;
+		topBgManager.ChangeActive(true);
+		timeOutChecker.TimeOut = false;
 	}
 
 	public bool HandIsValid() {

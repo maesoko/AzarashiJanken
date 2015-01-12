@@ -3,39 +3,26 @@ using System.Collections;
 
 public class TimeOutChecker : MonoBehaviour {
 
-	private const float TIME_OUT = 10.0f;
-	private float elapsedTime = 0f;
-	private float interval = 1.0f;
-	private float nextTime;
-	private bool timeOut = false;
+	public Blinker blinker;
+	public int timeoutPeriod = 10;
+	private bool timeout;
 
-	public bool IsTimedOut{
-		get{return timeOut;}
+	public bool TimeOut{
+		get{ return timeout; }
+		set{ timeout = value; }
 	}
 
 	// Use this for initialization
 	void Start () {
-		nextTime = Time.time;
+		timeout = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(elapsedTime > TIME_OUT) {
-			timeOut = true;
-			elapsedTime = 0f;
-		}
-	}
-
-	public void CheckForTimeOut(bool isCheck) {
-		while(isCheck) {
-			if(Time.time > nextTime) {
-				elapsedTime += 1.0f;
-				nextTime += interval;
-			}
-		}
-
-		if(!isCheck) {
-			elapsedTime = 0f;
+		if(blinker.BlinkCount > timeoutPeriod) {
+			timeout = true;
+		} else {
+			timeout = false;
 		}
 	}
 }
