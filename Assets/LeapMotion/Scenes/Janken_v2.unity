@@ -201,6 +201,7 @@ MonoBehaviour:
   uiBgManager: {fileID: 1698674558}
   gameBgManager: {fileID: 637548613}
   timeOutChecker: {fileID: 637548614}
+  msgChenger: {fileID: 1505000621}
 --- !u!4 &261662981
 Transform:
   m_ObjectHideFlags: 0
@@ -1350,8 +1351,8 @@ AudioSource:
   m_GameObject: {fileID: 1505000615}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: ec14fa8b3db56334783ddf874a65a6e2, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1411,7 +1412,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e7b2ffb9e954ebfa436bf2702068df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beforeMessage: {fileID: 2800000, guid: 7c567af536b5140629dd6f7bc1820f26, type: 3}
   afterMessage: {fileID: 2800000, guid: e4ee9d5b0207c480996bf2ec847b5d1c, type: 3}
+  gameManager: {fileID: 261662980}
+  beforeVoice: {fileID: 8300000, guid: ec14fa8b3db56334783ddf874a65a6e2, type: 3}
+  afterVoice: {fileID: 8300000, guid: ac288b0594363da44abb23014a04af8e, type: 3}
 --- !u!1 &1658789512
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	public BackgroundManager uiBgManager;
 	public BackgroundManager gameBgManager;
 	public TimeOutChecker timeOutChecker;
+	public MessageChanger msgChenger;
 
 	public int ExtendedFingers{
 		get{return handController.GetFrame().Fingers.Extended().Count;}
@@ -34,6 +35,8 @@ public class GameManager : MonoBehaviour {
 		if(GameIsPlaying) {
 
 			GameSetup();
+
+			print("endOfMessage = " + msgChenger.EndOfMessage);
 
 			if(timeOutChecker.TimeOut) {
 				GameReset();
