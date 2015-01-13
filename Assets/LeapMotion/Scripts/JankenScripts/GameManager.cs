@@ -23,12 +23,17 @@ public class GameManager : MonoBehaviour {
 		//ゲーム初期化
 		init();
 	}
+
+	private void GameSetup(){
+		uiBgManager.ChangeActive(true);
+		gameBgManager.ChangeActive(true);
+	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(GameIsPlaying) {
-			uiBgManager.ChangeActive(true);
-			gameBgManager.ChangeActive(true);
+
+			GameSetup();
 
 			if(timeOutChecker.TimeOut) {
 				GameReset();
