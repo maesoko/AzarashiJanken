@@ -23,8 +23,9 @@ public class MessageChanger : MonoBehaviour {
 	void OnEnable() {
 		messageIsChanged = false;
 		endOfMessage = false;
-		gameObject.audio.clip = beforeVoice;
+
 		//TODO:初回プレイ時かどうかでメッセージを切り替える
+		gameObject.audio.clip = beforeVoice;
 		MessageChange(beforeMessage); //初回プレイ
 	}
 

@@ -7,9 +7,15 @@ public class HandChecker : MonoBehaviour {
 	public Blinker rock;
 	public Blinker scissors;
 	public Blinker paper;
-	private const int ROCK = 0;
-	private const int SCISSORS  = 2;
-	private const int PAPER  = 5;
+	public const int ROCK = 0;
+	public const int SCISSORS  = 2;
+	public const int PAPER  = 5;
+	public const int INVALID = -1;
+	private int playerHand = -1;
+
+	public int PlayerHand{
+		get { return playerHand; }
+	}
 
 
 	// Use this for initialization
@@ -22,6 +28,7 @@ public class HandChecker : MonoBehaviour {
 			HandCheck(gameManager.ExtendedFingers);
 		} else {
 			BlinkReset();
+			playerHand = INVALID;
 		}
 	}
 
@@ -37,19 +44,23 @@ public class HandChecker : MonoBehaviour {
 			rock.Blink(true);
 			scissors.Blink(false);
 			paper.Blink(false);
+			playerHand = ROCK;
 			break;
 		case SCISSORS:
 			rock.Blink(false);
 			scissors.Blink(true);
 			paper.Blink(false);
+			playerHand = SCISSORS;
 			break;
 		case PAPER:
 			rock.Blink(false);
 			scissors.Blink(false);
 			paper.Blink(true);
+			playerHand = PAPER;
 			break;
 		default:
 			BlinkReset();
+			playerHand = INVALID;
 			break;
 		}
 

@@ -8,9 +8,13 @@ public class GameManager : MonoBehaviour {
 	public BackgroundManager topBgManager;
 	public BackgroundManager uiBgManager;
 	public BackgroundManager gameBgManager;
+	public BackgroundManager judgeBgManager;
 	public TimeOutChecker timeOutChecker;
 	public MessageChanger msgChenger;
+	public HandChecker handChecker;
 	private bool setupCompleted;
+	private bool resultDisplayed;
+	public JudgeManager judgeManager;
 
 	public int ExtendedFingers{
 		get{return handController.GetFrame().Fingers.Extended().Count;}
@@ -47,6 +51,13 @@ public class GameManager : MonoBehaviour {
 				GameReset();
 			}
 
+			if(msgChenger.EndOfMessage && !resultDisplayed) {
+				judgeManager.Judge(handChecker.PlayerHand);
+				gameBgManager.ChangeActive(false);
+				judgeBgManager.ChangeActive(true);
+				resultDisplayed = true;
+			}
+
 		}
 	}
 
@@ -59,7 +70,9 @@ public class GameManager : MonoBehaviour {
 
 	public void init() {
 		setupCompleted = false;
+		resultDisplayed = false;
 		uiBgManager.ChangeActive(false);
 		gameBgManager.ChangeActive(false);
+		judgeBgManager.ChangeActive(false);
 	}
 }

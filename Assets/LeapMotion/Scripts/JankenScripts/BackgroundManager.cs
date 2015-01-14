@@ -25,4 +25,8 @@ public class BackgroundManager : MonoBehaviour {
 			obj[i].renderer.material.SetTexture("_MainTex", images[i]);
 		}
 	}
+
+	public void ChangeTexture(GameObject obj, Texture texture) {
+		obj.renderer.material.SetTexture("_MainTex", texture);
+	}
 }
