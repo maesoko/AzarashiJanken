@@ -19,7 +19,7 @@ public class TopScreen : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(gameManager.HandIsValid()) {
+		if(gameManager.HandIsValid) {
 			bgManager.ChangeActive(false);
 			IsDisplayed = false;
 		} else {

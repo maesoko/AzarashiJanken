@@ -13,7 +13,7 @@ public class MessageChanger : MonoBehaviour {
 	private bool endOfMessage;
 
 	public bool EndOfMessage{
-		get {return endOfMessage; }
+		get { return endOfMessage; }
 	}
 
 	// Use this for initialization

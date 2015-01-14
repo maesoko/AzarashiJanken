@@ -19,6 +19,10 @@ public class Blinker : MonoBehaviour {
 		nextTime = Time.time;
 		blinkCount = 0;
 	}
+
+	void OnDisable() {
+
+	}
 	
 	// Update is called once per frame
 	void Update () {

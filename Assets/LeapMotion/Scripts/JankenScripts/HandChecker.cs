@@ -18,7 +18,7 @@ public class HandChecker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(gameManager.HandIsValid()) {
+		if(gameManager.HandIsValid) {
 			HandCheck(gameManager.ExtendedFingers);
 		} else {
 			BlinkReset();

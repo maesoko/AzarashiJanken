@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	public BackgroundManager gameBgManager;
 	public TimeOutChecker timeOutChecker;
 	public MessageChanger msgChenger;
+	private bool setupCompleted;
 
 	public int ExtendedFingers{
 		get{return handController.GetFrame().Fingers.Extended().Count;}
@@ -17,6 +18,10 @@ public class GameManager : MonoBehaviour {
 
 	public bool GameIsPlaying{
 		get{ return !topScreen.IsDisplayed; }
+	}
+
+	public bool HandIsValid{
+		get {return handController.GetFrame().Fingers.Count > 0;}
 	}
 
 	// Use this for initialization
@@ -28,36 +33,32 @@ public class GameManager : MonoBehaviour {
 	private void GameSetup(){
 		uiBgManager.ChangeActive(true);
 		gameBgManager.ChangeActive(true);
+		setupCompleted = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(GameIsPlaying) {
-
-			GameSetup();
-
-			print("endOfMessage = " + msgChenger.EndOfMessage);
+			if(!setupCompleted) {
+				GameSetup();
+			}
 
 			if(timeOutChecker.TimeOut) {
 				GameReset();
 			}
 
-		} else {
-			init();
 		}
 	}
 
-	private void GameReset(){
+	private void GameReset() {
+		init();
 		topScreen.IsDisplayed = true;
 		topBgManager.ChangeActive(true);
 		timeOutChecker.TimeOut = false;
 	}
 
-	public bool HandIsValid() {
-		return handController.GetFrame().Fingers.Count > 0;
-	}
-
 	public void init() {
+		setupCompleted = false;
 		uiBgManager.ChangeActive(false);
 		gameBgManager.ChangeActive(false);
 	}

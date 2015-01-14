@@ -13,7 +13,7 @@ public class NoHandMessenger : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(gameManager.HandIsValid()) {
+		if(gameManager.HandIsValid) {
 			blinker.Blink(false);
 			renderer.enabled = false;
 		} else {
