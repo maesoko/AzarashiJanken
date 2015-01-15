@@ -7,14 +7,16 @@ public class VoiceManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		playBack = false;
 	}
 	
 	void OnWillRenderObject() {
-		if(!playBack) {
-			print("hoge");
+		if(playBack) {
 			gameObject.audio.Play();
-			playBack = true;
+			playBack = false;
 		}
+	}
+
+	void OnEnable() {
+		playBack = true;
 	}
 }

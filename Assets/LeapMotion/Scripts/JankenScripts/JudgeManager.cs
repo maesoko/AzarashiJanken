@@ -4,15 +4,9 @@ using System.Collections;
 public class JudgeManager : MonoBehaviour {
 
 	public BackgroundManager bgManager;
-	public GameObject azarashiHand;
-	public GameObject playerHand;
-	public Texture playerRock;
-	public Texture playerScissors;
-	public Texture playerPaper;
-	public Texture azarashiRock;
-	public Texture azarashiScissors;
-	public Texture azarashiPaper;
-	public VoiceManager voice;
+	public HandChanger azarashiHand;
+	public HandChanger playerHand;
+	public ResultManager resultManager;
 
 
 	// Use this for initialization
@@ -24,24 +18,32 @@ public class JudgeManager : MonoBehaviour {
 	
 	}
 
-	public void Judge(int hand) {
+	public bool JudgeIsInValid(int hand) {
+		return hand == HandChecker.INVALID;
+	}
+
+	public void HandJudge(int hand) {
 		switch (hand) {
 		case HandChecker.ROCK:
-			bgManager.ChangeTexture(playerHand, playerRock);
-			bgManager.ChangeTexture(azarashiHand, azarashiPaper);
+			playerHand.HandChange(HandChecker.ROCK);
+			azarashiHand.HandChange(HandChecker.PAPER);
 			break;
 		case HandChecker.SCISSORS:
-			bgManager.ChangeTexture(playerHand, playerScissors);
-			bgManager.ChangeTexture(azarashiHand, azarashiRock);
+			playerHand.HandChange(HandChecker.SCISSORS);
+			azarashiHand.HandChange(HandChecker.ROCK);
 			break;
 		case HandChecker.PAPER:
-			bgManager.ChangeTexture(playerHand, playerPaper);
-			bgManager.ChangeTexture(azarashiHand, azarashiScissors);
-			break;
-		default:
-			//TODO:判定不可画面を表示させる
-			print("INVALID");
+			playerHand.HandChange(HandChecker.PAPER);
+			azarashiHand.HandChange(HandChecker.SCISSORS);
 			break;
 		}
+		bgManager.ChangeActive(true);
+		StartCoroutine(JudgeEnd());
+	}
+
+	private IEnumerator JudgeEnd() {
+		yield return new WaitForSeconds(GameManager.WAIT_TIME);
+		bgManager.ChangeActive(false);
+		resultManager.GameWin();
 	}
 }

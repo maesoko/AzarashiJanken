@@ -9,12 +9,15 @@ public class GameManager : MonoBehaviour {
 	public BackgroundManager uiBgManager;
 	public BackgroundManager gameBgManager;
 	public BackgroundManager judgeBgManager;
+	public BackgroundManager resultBgManager;
 	public TimeOutChecker timeOutChecker;
 	public MessageChanger msgChenger;
 	public HandChecker handChecker;
 	private bool setupCompleted;
-	private bool resultDisplayed;
 	public JudgeManager judgeManager;
+	public ResultManager resultManager;
+	public const float WAIT_TIME = 3.0f;
+	private bool isFirstPlay;
 
 	public int ExtendedFingers{
 		get{return handController.GetFrame().Fingers.Extended().Count;}
@@ -26,6 +29,14 @@ public class GameManager : MonoBehaviour {
 
 	public bool HandIsValid{
 		get {return handController.GetFrame().Fingers.Count > 0;}
+	}
+
+	public bool HandJudge{
+		get { return msgChenger.EndOfMessage; }
+	}
+
+	public bool IsFirstPlay{
+		get { return isFirstPlay; }
 	}
 
 	// Use this for initialization
@@ -43,36 +54,51 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(GameIsPlaying) {
+
 			if(!setupCompleted) {
 				GameSetup();
 			}
 
 			if(timeOutChecker.TimeOut) {
+				GameEnd();
+			}
+
+			if(HandJudge) {
+
+				if (judgeManager.JudgeIsInValid(handChecker.PlayerHand)) {
+					resultManager.GameRetry();
+				} else {
+					judgeManager.HandJudge(handChecker.PlayerHand);
+				}
+
+				gameBgManager.ChangeActive(false);
+			}
+
+			if(resultManager.IsResultEnd) {
 				GameReset();
 			}
-
-			if(msgChenger.EndOfMessage && !resultDisplayed) {
-				judgeManager.Judge(handChecker.PlayerHand);
-				gameBgManager.ChangeActive(false);
-				judgeBgManager.ChangeActive(true);
-				resultDisplayed = true;
-			}
-
 		}
 	}
 
-	private void GameReset() {
+	private void GameEnd() {
 		init();
 		topScreen.IsDisplayed = true;
 		topBgManager.ChangeActive(true);
 		timeOutChecker.TimeOut = false;
 	}
 
+	public void GameReset() {
+		isFirstPlay = false;
+		resultBgManager.ChangeActive(false);
+		gameBgManager.ChangeActive(true);
+	}
+
 	public void init() {
 		setupCompleted = false;
-		resultDisplayed = false;
+		isFirstPlay = true;
 		uiBgManager.ChangeActive(false);
 		gameBgManager.ChangeActive(false);
 		judgeBgManager.ChangeActive(false);
+		resultBgManager.ChangeActive(false);
 	}
 }

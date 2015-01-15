@@ -11,6 +11,7 @@ public class MessageChanger : MonoBehaviour {
 	public AudioClip beforeVoice;
 	public AudioClip afterVoice;
 	private bool endOfMessage;
+	public BackgroundManager bgManager;
 
 	public bool EndOfMessage{
 		get { return endOfMessage; }
@@ -21,44 +22,53 @@ public class MessageChanger : MonoBehaviour {
 	}
 
 	void OnEnable() {
-		messageIsChanged = false;
-		endOfMessage = false;
 
-		//TODO:初回プレイ時かどうかでメッセージを切り替える
-		gameObject.audio.clip = beforeVoice;
-		MessageChange(beforeMessage); //初回プレイ
+		if(gameManager.IsFirstPlay) {
+			bgManager.ChangeTexture(gameObject, beforeMessage);
+		} else {
+			bgManager.ChangeTexture(gameObject, afterMessage);
+		}
 	}
 
 	void OnDisable() {
+		messageIsChanged = false;
+		endOfMessage = false;
 		gameObject.audio.clip = null;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if(gameManager.GameIsPlaying && !messageIsChanged) {
-			if(!voiceIsPlaying) {
-				PlayBeforeVoice();
-				voiceIsPlaying = true;
+		if(gameManager.HandIsValid) {
+
+			if(!messageIsChanged && gameManager.IsFirstPlay) {
+
+				if(!voiceIsPlaying) {
+					PlayBeforeVoice();
+					voiceIsPlaying = true;
+				}
+				
+				if(voiceIsPlaying && !gameObject.audio.isPlaying) {
+					PlayAfterVoice();
+					bgManager.ChangeTexture(gameObject, afterMessage);
+					voiceIsPlaying = false;
+					messageIsChanged = true;
+				}
 			}
-			
-			if(voiceIsPlaying && !gameObject.audio.isPlaying) {
+
+			if(!messageIsChanged && !gameManager.IsFirstPlay) {
 				PlayAfterVoice();
-				MessageChange(afterMessage);
-				voiceIsPlaying = false;
 				messageIsChanged = true;
 			}
-		}
+			
+			if(messageIsChanged && !gameObject.audio.isPlaying) {
+				endOfMessage = true;
+			}
 
-		if(messageIsChanged && !gameObject.audio.isPlaying) {
-			endOfMessage = true;
 		}
-	}
-
-	private void MessageChange(Texture message) {
-		gameObject.renderer.material.SetTexture("_MainTex", message);
 	}
 
 	private void PlayBeforeVoice() {
+		gameObject.audio.clip = beforeVoice;
 		gameObject.audio.Play();
 	}
 
