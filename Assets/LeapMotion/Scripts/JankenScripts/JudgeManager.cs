@@ -43,6 +43,5 @@ public class JudgeManager : MonoBehaviour {
 			print("INVALID");
 			break;
 		}
-		voice.PlayVoice();
 	}
 }

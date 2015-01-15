@@ -3,23 +3,18 @@ using System.Collections;
 
 public class VoiceManager : MonoBehaviour {
 
-	private bool playBackStart;
+	private bool playBack;
 
 	// Use this for initialization
 	void Start () {
-		playBackStart = false;
+		playBack = false;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if(playBackStart) {
+	void OnWillRenderObject() {
+		if(!playBack) {
+			print("hoge");
 			gameObject.audio.Play();
-			playBackStart = false;
+			playBack = true;
 		}
 	}
-
-	public void PlayVoice() {
-		playBackStart = true;
-	}
-
 }
