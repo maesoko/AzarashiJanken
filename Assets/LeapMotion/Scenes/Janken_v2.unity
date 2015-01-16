@@ -82,6 +82,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 29085319}
+  - 114: {fileID: 29085320}
   m_Layer: 0
   m_Name: Raunds
   m_TagString: Untagged
@@ -105,6 +106,23 @@ Transform:
   - {fileID: 757223200}
   m_Father: {fileID: 1698674557}
   m_RootOrder: 2
+--- !u!114 &29085320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 29085318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e6ef59384194721b4c270c9413b46a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgManager: {fileID: 1698674558}
+  azarashiWin: {fileID: 2800000, guid: a4245fc8eefe941338fc9a494e07cc31, type: 3}
+  rounds:
+  - {fileID: 494660610}
+  - {fileID: 1307293749}
+  - {fileID: 757223199}
 --- !u!1 &118435332
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,6 +311,7 @@ MonoBehaviour:
   handChecker: {fileID: 1497651398}
   judgeManager: {fileID: 1731905654}
   resultManager: {fileID: 1256648646}
+  roundManager: {fileID: 29085320}
 --- !u!4 &261662981
 Transform:
   m_ObjectHideFlags: 0
@@ -1309,6 +1328,7 @@ MonoBehaviour:
   winMessage: {fileID: 2800000, guid: 228c35b5d3c7f475290fbb31aed31f58, type: 3}
   azarashiRetry: {fileID: 2800000, guid: 01e0b1332954a40c99e63b5bb16419d2, type: 3}
   retryMessage: {fileID: 2800000, guid: 267646eddaf5942ba83e00249e1f3c3a, type: 3}
+  roundManager: {fileID: 29085320}
 --- !u!114 &1256648647
 MonoBehaviour:
   m_ObjectHideFlags: 0

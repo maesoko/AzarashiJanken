@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 	public ResultManager resultManager;
 	public const float WAIT_TIME = 3.0f;
 	private bool isFirstPlay;
+	public RoundManager roundManager;
 
 	public int ExtendedFingers{
 		get{return handController.GetFrame().Fingers.Extended().Count;}
@@ -37,6 +38,10 @@ public class GameManager : MonoBehaviour {
 
 	public bool IsFirstPlay{
 		get { return isFirstPlay; }
+	}
+
+	public bool IsGameOver{
+		get { return roundManager.IsFinalRound; }
 	}
 
 	// Use this for initialization
@@ -74,8 +79,14 @@ public class GameManager : MonoBehaviour {
 				gameBgManager.ChangeActive(false);
 			}
 
-			if(resultManager.IsResultEnd) {
+			if(resultManager.IsResultEnd && !IsGameOver) {
 				GameReset();
+			}
+
+			if(IsGameOver) {
+				if(!HandIsValid) {
+					GameEnd();
+				}
 			}
 		}
 	}
@@ -93,9 +104,10 @@ public class GameManager : MonoBehaviour {
 		gameBgManager.ChangeActive(true);
 	}
 
-	public void init() {
+	private void init() {
 		setupCompleted = false;
 		isFirstPlay = true;
+		uiBgManager.InitTexture();
 		uiBgManager.ChangeActive(false);
 		gameBgManager.ChangeActive(false);
 		judgeBgManager.ChangeActive(false);

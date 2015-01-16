@@ -8,7 +8,7 @@ public class BackgroundManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		init(objects, textures);
+		InitTexture();
 	}
 	
 	// Update is called once per frame
@@ -20,9 +20,9 @@ public class BackgroundManager : MonoBehaviour {
 		gameObject.SetActive(isActive);
 	}
 
-	private void init(GameObject[] obj, Texture[] images) {
-		for(int i = 0; i < obj.Length; i++) {
-			obj[i].renderer.material.SetTexture("_MainTex", images[i]);
+	public void InitTexture() {
+		for(int i = 0; i < objects.Length; i++) {
+			objects[i].renderer.material.SetTexture("_MainTex", textures[i]);
 		}
 	}
 

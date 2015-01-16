@@ -11,6 +11,7 @@ public class ResultManager : MonoBehaviour {
 	public Texture azarashiRetry;
 	public Texture retryMessage;
 	private bool isResultEnd;
+	public RoundManager roundManager;
 
 	public bool IsResultEnd{
 		get { return isResultEnd;}
@@ -31,6 +32,7 @@ public class ResultManager : MonoBehaviour {
 		bgManager.ChangeTexture(azarashi, azarashiWin);
 		bgManager.ChangeTexture(resultMessage, winMessage);
 		bgManager.ChangeActive(true);
+		roundManager.EnemyWin();
 		StartCoroutine(ResultEnd());
 	}
 
