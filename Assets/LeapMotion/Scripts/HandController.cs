@@ -51,7 +51,7 @@ public class HandController : MonoBehaviour {
   private long prev_physics_id_ = 0;
 
 	public int ExtendedFingers{
-		get{ return GetLeapController().Frame().Fingers.Extended().Count; }
+		get{ return GetFrame().Fingers.Extended().Count; }
 	}
   
   void OnDrawGizmos() {

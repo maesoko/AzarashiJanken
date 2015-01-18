@@ -116,11 +116,11 @@ public class LeapImageRetriever : MonoBehaviour
 
   private LM_DEVICE GetDevice(int width)
   {
-    const bool OVERRIDE_MANTIS = false;
-    if (OVERRIDE_MANTIS)
-    {
-      return LM_DEVICE.MANTIS;
-    }
+//    const bool OVERRIDE_MANTIS = false;
+//    if (OVERRIDE_MANTIS)
+//    {
+//      return LM_DEVICE.MANTIS;
+//    }
 
     if (width == LMDevice.PERIPERAL_WIDTH)
     {
@@ -435,7 +435,7 @@ public class LeapImageRetriever : MonoBehaviour
   }
 
   void OnApplicationFocus(bool focusStatus) {
-    bool paused = focusStatus;
+    //bool paused = focusStatus;
     if (focusStatus) {
             // Ensure reinitialization in Update
             attached_device_.width = 0;
