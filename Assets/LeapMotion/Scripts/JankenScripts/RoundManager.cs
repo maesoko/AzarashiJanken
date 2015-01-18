@@ -28,11 +28,15 @@ public class RoundManager : MonoBehaviour {
 		
 	}
 
+	public void RoundReset() {
+		currentRound = 0;
+	}
+
 	public void EnemyWin() {
 		bgManager.ChangeTexture(rounds[currentRound++], azarashiWin);
 
 		if(currentRound == FINAL_ROUND) {
-			currentRound = 0;
+			RoundReset();
 			isFinalRound = true;
 		}
 	}

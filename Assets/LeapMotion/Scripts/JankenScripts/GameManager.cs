@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour {
 				GameReset();
 			}
 
-			if(IsGameOver) {
+			if(IsGameOver && resultManager.IsResultEnd) {
 				if(!HandIsValid) {
 					GameEnd();
 				}
@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour {
 		topScreen.IsDisplayed = true;
 		topBgManager.ChangeActive(true);
 		timeOutChecker.TimeOut = false;
+		roundManager.RoundReset();
 	}
 
 	public void GameReset() {

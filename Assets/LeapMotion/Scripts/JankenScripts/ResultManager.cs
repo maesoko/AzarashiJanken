@@ -32,12 +32,18 @@ public class ResultManager : MonoBehaviour {
 		bgManager.ChangeTexture(azarashi, azarashiWin);
 		bgManager.ChangeTexture(resultMessage, winMessage);
 		bgManager.ChangeActive(true);
-		roundManager.EnemyWin();
-		StartCoroutine(ResultEnd());
+		StartCoroutine(ResultWin());
 	}
 
 	private IEnumerator ResultEnd() {
 		yield return new WaitForSeconds(GameManager.WAIT_TIME);
 		isResultEnd = true;
 	}
+
+	private IEnumerator ResultWin() {
+		roundManager.EnemyWin();
+		yield return new WaitForSeconds(GameManager.WAIT_TIME);
+		isResultEnd = true;
+	}
+
 }
