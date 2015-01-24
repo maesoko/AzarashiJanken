@@ -19,4 +19,8 @@ public class VoiceManager : MonoBehaviour {
 	void OnEnable() {
 		playBack = true;
 	}
+
+	void OnDisable() {
+		gameObject.audio.Stop();
+	}
 }

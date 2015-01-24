@@ -12,6 +12,11 @@ public class ResultManager : MonoBehaviour {
 	public Texture retryMessage;
 	private bool isResultEnd;
 	public RoundManager roundManager;
+	public AudioClip azarashiWinVoice;
+	public AudioClip winSE;
+	public AudioClip azarashiRetryVoice;
+	public AudioClip retrySE;
+	public AudioClip endVoice;
 
 	public bool IsResultEnd{
 		get { return isResultEnd;}
@@ -25,6 +30,8 @@ public class ResultManager : MonoBehaviour {
 		bgManager.ChangeTexture(azarashi, azarashiRetry);
 		bgManager.ChangeTexture(resultMessage, retryMessage);
 		bgManager.ChangeActive(true);
+		gameObject.audio.PlayOneShot(retrySE, 0.2f);
+		gameObject.audio.PlayOneShot(azarashiRetryVoice);
 		StartCoroutine(ResultEnd());
 	}
 
@@ -32,6 +39,8 @@ public class ResultManager : MonoBehaviour {
 		bgManager.ChangeTexture(azarashi, azarashiWin);
 		bgManager.ChangeTexture(resultMessage, winMessage);
 		bgManager.ChangeActive(true);
+		gameObject.audio.PlayOneShot(winSE, 0.2f);
+		gameObject.audio.PlayOneShot(azarashiWinVoice);
 		StartCoroutine(ResultWin());
 	}
 
@@ -42,8 +51,12 @@ public class ResultManager : MonoBehaviour {
 
 	private IEnumerator ResultWin() {
 		roundManager.EnemyWin();
-		yield return new WaitForSeconds(GameManager.WAIT_TIME);
-		isResultEnd = true;
+		if(roundManager.IsFinalRound) {
+			yield return new WaitForSeconds(GameManager.WAIT_TIME);
+			gameObject.audio.PlayOneShot(endVoice);
+			yield return StartCoroutine(ResultEnd());
+		} else {
+			yield return StartCoroutine(ResultEnd());
+		}
 	}
-
 }

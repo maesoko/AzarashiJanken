@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour {
 	public const float WAIT_TIME = 3.0f;
 	private bool isFirstPlay;
 	public RoundManager roundManager;
+	private bool handRecognition;
+	public AudioClip recognitionSE;
 
 	public int ExtendedFingers{
 		get{return handController.GetFrame().Fingers.Extended().Count;}
@@ -88,6 +90,15 @@ public class GameManager : MonoBehaviour {
 					GameEnd();
 				}
 			}
+
+			if(HandIsValid && !handRecognition) {
+				handRecognition = true;
+				gameObject.audio.PlayOneShot(recognitionSE, 0.5f);
+			}
+
+			if(!HandIsValid && handRecognition) {
+				handRecognition = false;
+			}
 		}
 	}
 
@@ -106,6 +117,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void init() {
+		handRecognition = false;
 		setupCompleted = false;
 		isFirstPlay = true;
 		uiBgManager.InitTexture();
