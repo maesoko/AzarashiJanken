@@ -33,6 +33,7 @@ public class MessageChanger : MonoBehaviour {
 	void OnDisable() {
 		messageIsChanged = false;
 		endOfMessage = false;
+		voiceIsPlaying = false;
 		gameObject.audio.clip = null;
 	}
 
