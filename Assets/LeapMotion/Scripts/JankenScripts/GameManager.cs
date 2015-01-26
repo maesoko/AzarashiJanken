@@ -101,7 +101,6 @@ public class GameManager : MonoBehaviour {
 			}
 
 			if(Input.GetKey(KeyCode.R)) {
-				print("end");
 				GameEnd();
 			}
 		}
