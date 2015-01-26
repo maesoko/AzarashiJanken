@@ -99,6 +99,11 @@ public class GameManager : MonoBehaviour {
 			if(!HandIsValid && handRecognition) {
 				handRecognition = false;
 			}
+
+			if(Input.GetKey(KeyCode.R)) {
+				print("end");
+				GameEnd();
+			}
 		}
 	}
 
