@@ -61,7 +61,7 @@ public class MessageChanger : MonoBehaviour {
 				messageIsChanged = true;
 			}
 			
-			if(messageIsChanged && !gameObject.audio.isPlaying) {
+			if(messageIsChanged && gameObject.audio.time > 2.6f) {
 				endOfMessage = true;
 			}
 
